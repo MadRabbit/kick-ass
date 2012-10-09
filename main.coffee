@@ -16,6 +16,8 @@ Element = $.Element
 
 # glue in your files
 include 'src/kick_ass'
+include 'src/table'
 
 exports = ext KickAss,
   version: '%{version}'
+  Table:   Table

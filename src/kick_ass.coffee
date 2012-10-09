@@ -4,11 +4,11 @@
 # Copyright (C) 2012 Nikolay Nemshilov
 #
 class KickAss extends Element
-  include: UI.Options
   extend:
     Options:
-      size: 200 # the amount of dom elements to be created
-      runs: 4   # number of runs for every step
+      size: 200   # the amount of dom elements to be created
+      runs: 4     # number of runs for every step
+      tests: null # test names in an array or `null` to run everything
 
     Tests:
       make:          "Elements building"
@@ -37,6 +37,30 @@ class KickAss extends Element
     options = @setOptions(options)
     super 'div', class: 'kick-ass'
 
+    table = new Table(@libs, @tests).insertTo(@)
+
+    return @
+
+  #
+  # Sets the options
+  #
+  # @param {Object} options
+  # @return {Object} cleaned options
+  #
+  setOptions: ->
+    options = UI.Options.setOptions.apply(@, arguments)
+
+    @tests  = options.tests || core.Hash.keys(KickAss.Tests)
+    delete(options.tests)
+
+    @libs = []
+
+    for key in ['lovely', 'rightjs', 'jquery', 'mootools', 'dojo', 'yui']
+      if key of options
+        @libs.push(key + "-" + options[key])
+        delete(options[key])
+
+    return options
 
   #
   # Starts the test running
