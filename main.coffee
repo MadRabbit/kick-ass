@@ -16,8 +16,10 @@ Element = $.Element
 
 # glue in your files
 include 'src/kick_ass'
+include 'src/frames'
 include 'src/table'
 
 exports = ext KickAss,
   version: '%{version}'
+  Frames:  Frames
   Table:   Table

@@ -37,7 +37,8 @@ class KickAss extends Element
     options = @setOptions(options)
     super 'div', class: 'kick-ass'
 
-    table = new Table(@libs, @tests).insertTo(@)
+    @frames = new Frames(@)
+    @table  = new Table(@)
 
     return @
 

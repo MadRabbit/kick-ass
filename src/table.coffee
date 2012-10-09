@@ -8,29 +8,28 @@ class Table extends Element
   #
   # Constructor
   #
-  # @param {Object} libraries
-  # @param {Object} test names
+  # @param {KickAss} main object
   # @return {Table} this
   #
-  constructor: (libs, tests)->
+  constructor: (main)->
     header = "<th></th>"
 
-    for name in libs
+    for name in main.libs
       header += "<th>#{name}</th>"
 
     super 'table', html: "<tr>#{header}</tr>"
 
     @lookup = {}
 
-    for name in tests
+    for name in main.tests
       row = new Element('tr')
       row.append new Element('td', html: KickAss.Tests[name])
 
-      for lib in libs
+      for lib in main.libs
         res = new Element('td')
         @lookup[name + "-" + lib]
         row.append res
 
       @append row
 
-    return @
+    @insertTo(main)
