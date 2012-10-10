@@ -6,9 +6,10 @@
 class KickAss extends Element
   extend:
     Options:
-      size: 200   # the amount of dom elements to be created
-      runs: 4     # number of runs for every step
-      tests: null # test names in an array or `null` to run everything
+      size: 200    # the amount of dom elements to be created
+      runs: 4      # number of runs for every step
+      tests: null  # test names in an array or `null` to run everything
+      native: true # show raw DOM test
 
     Tests:
       make:          "Elements building"
@@ -54,7 +55,7 @@ class KickAss extends Element
     @tests  = options.tests || core.Hash.keys(KickAss.Tests)
     delete(options.tests)
 
-    @libs = []
+    @libs = if @options.native then ['Raw DOM'] else []
 
     for key in ['lovely', 'rightjs', 'jquery', 'mootools', 'dojo', 'yui']
       if key of options
