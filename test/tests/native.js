@@ -26,8 +26,15 @@ var Test = {
     document.body.appendChild(ul);
   },
 
-  find: function(id) {
+  findById: function(id) {
     return document.getElementById(id);
+  },
+
+  findByCSS: function(css) {
+    for (var i=0,r=[],q=document.querySelectorAll(css),l=q.length; i<l; i++) {
+      r[i] = q[i];
+    }
+    return r;
   },
 
   bind: self.attachEvent ? function(list, callback) {

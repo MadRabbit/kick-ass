@@ -12,7 +12,8 @@ class KickAss extends Element
 
     Tests:
       make:          "Elements building"
-      find:          "Access an element by ID"
+      findById:      "Access an element by ID"
+      findByCSS:     "Access by a CSS rule"
       bind:          "Add an event listener"
       unbind:        "Remove an event listener"
       set:           "Set an element attribute"

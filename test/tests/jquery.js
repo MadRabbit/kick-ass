@@ -4,15 +4,19 @@ var Test = {
   },
 
   make: function(id) {
-    $("<ul id='" + id + "' class='fromcode'></ul>")
+    $("<ul id='" + id + "' class='test'></ul>")
       .append("<li>one</li>")
       .append("<li>two</li>")
       .append("<li>three</li>")
       .appendTo(document.body);
   },
 
-  find: function(id) {
+  findById: function(id) {
     return $('#'+id);
+  },
+
+  findByCSS: function(css) {
+    return $(css);
   },
 
   bind: function(list, callback) {

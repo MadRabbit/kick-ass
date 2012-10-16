@@ -7,15 +7,19 @@ var Test = {
   },
 
   make: function(id) {
-    new Element('ul', {'class': 'fromcode', id: id})
+    new Element('ul', {'class': 'test', id: id})
       .insert(new Element('li', {html: 'one'}))
       .insert(new Element('li', {html: 'two'}))
       .insert(new Element('li', {html: 'three'}))
       .insertTo(document.body);
   },
 
-  find: function(id) {
-    return $('#'+ id);
+  findById: function(id) {
+    return $('#'+id);
+  },
+
+  findByCSS: function(css) {
+    return $(css);
   },
 
   bind: function(list, callback) {

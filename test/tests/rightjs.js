@@ -11,8 +11,12 @@ var Test = {
       .insertTo(document.body);
   },
 
-  find: function(id) {
+  findById: function(id) {
     return $(id);
+  },
+
+  findByCSS: function(css) {
+    return $$(css);
   },
 
   bind: function(list, callback) {

@@ -28,7 +28,7 @@ class Test
   run: (name)->
     args = [@test[name]]
 
-    if 'make find'.indexOf(name) isnt -1
+    if 'make findById'.indexOf(name) isnt -1
       args.push(@options.size)
     else
       args.push(@test._list())
@@ -67,9 +67,14 @@ class Test
       test('someid'+i);
   }`
 
-  find: `function (test) {
+  findById: `function (test) {
     for (var i=0; i < 10000; i++)
       test('someid'+i);
+  }`
+
+  findByCSS: `function (test) {
+    for (var i=0; i < 100; i++)
+      test('ul.test');
   }`
 
   bind: `function (test, list, dummy) {
