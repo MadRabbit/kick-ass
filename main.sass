@@ -30,6 +30,17 @@ div.kick-ass
     tr:nth-child(2n+1)
       background: rgba(0,0,0,.025)
 
+    tfoot td
+      border-color: rgba(0,0,0,.1)
+
+      &:first-child
+        text-align: right
+
+        &:before
+          content: 'Total:'
+          margin-right: 1em
+
+
   .frames
     position: absolute
     left:     -999em

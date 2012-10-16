@@ -42,9 +42,13 @@ class KickAss extends Element
 
     @frames = new Frames(@)
     @table  = new Table(@)
+    @stats  = new Stats(@)
 
     @on 'result', (event)->
-      @table.record(event.lib, event.test, event.time)
+      @stats.record(event.lib, event.test, event.time)
+
+    @on 'finish', ->
+      @table.display(@stats)
 
     return @
 
@@ -77,4 +81,4 @@ class KickAss extends Element
   start: ->
     @frames.run(@tests)
 
-    return @
+    @emit 'finish'

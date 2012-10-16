@@ -13,11 +13,13 @@ class Table extends Element
   #
   constructor: (main)->
     header = "<th></th>"
+    footer = '<td></td>'
 
     for name in main.libs
       header += "<th>#{name}</th>"
+      footer += "<td></td>"
 
-    super 'table', html: "<tr>#{header}</tr>"
+    super 'table', html: "<thead><tr>#{header}</tr></thead>"
 
     @lookup = {}
 
@@ -30,20 +32,26 @@ class Table extends Element
 
       @append row
 
+    @append "<tfoot><tr>#{footer}</tr></tfoot>"
+
     @insertTo(main)
 
   #
-  # Records a test result
+  # Displays the stats in the table
   #
-  # @param {String} library name
-  # @param {String} test name
-  # @param {Number} result
+  # @param {Stats} stats
   # @return {Table} this
   #
-  record: (lib, test, result)->
-    if cell = @lookup[test+"-"+lib]
-      window.setTimeout ->
-        cell._.innerHTML = ''+ result
-      , 1
+  display: (stats)->
+    results = stats.results()
+    summary = stats.summary()
+    footer  = @find('tfoot td').slice(1)
+
+    for key of results
+      @lookup[key]._.innerHTML = ''+ results[key]
+
+
+    for key of summary
+      footer.shift()._.innerHTML = ''+ summary[key]
 
     return @

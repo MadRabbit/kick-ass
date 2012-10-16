@@ -3,7 +3,7 @@
   <head>
     <script>
       var lib = document.location.href.split('#').pop();
-      if (lib != 'Raw DOM') {
+      if (lib.indexOf('DOM') == -1) {
         document.write('<scr'+'ipt src="libs/'+ lib +'.js"></scr'+'ipt>');
         document.write('<scr'+'ipt src="tests/'+ lib.split('-')[0] +'.js"></scr'+'ipt>');
       } else {
