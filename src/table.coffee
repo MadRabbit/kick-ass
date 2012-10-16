@@ -26,10 +26,24 @@ class Table extends Element
       row.append new Element('td', html: KickAss.Tests[name])
 
       for lib in main.libs
-        res = new Element('td')
-        @lookup[name + "-" + lib]
-        row.append res
+        row.append(@lookup[name + "-" + lib] = new Element('td'))
 
       @append row
 
     @insertTo(main)
+
+  #
+  # Records a test result
+  #
+  # @param {String} library name
+  # @param {String} test name
+  # @param {Number} result
+  # @return {Table} this
+  #
+  record: (lib, test, result)->
+    if cell = @lookup[test+"-"+lib]
+      window.setTimeout ->
+        cell._.innerHTML = ''+ result
+      , 1
+
+    return @

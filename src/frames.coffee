@@ -28,6 +28,8 @@ class Frames extends Element
   #
   # Builds the actual tests list
   #
+  # @return {Frames} this
+  #
   prepare: ->
     @tests = {}
     for lib in @main.libs
@@ -39,9 +41,16 @@ class Frames extends Element
   #
   # Runs the test on all the frames
   #
-  # @param {String} test name
+  # @param {String} test names
   # @return {Frames} this
   #
-  run: (name)->
-    for lib of @tests
-      @tests[lib].run(name)
+  run: (tests)->
+    @prepare()
+
+    for name in [tests[0]]
+      for lib of @tests
+        @emit 'result', lib: lib, test: name, time: @tests[lib].run(name)
+
+    return @
+
+

@@ -6,8 +6,7 @@
 class KickAss extends Element
   extend:
     Options:
-      size:   200  # the amount of dom elements to be created
-      runs:   4    # number of runs for every step
+      size:   800  # the amount of dom elements to be created
       tests:  null # test names in an array or `null` to run everything
       native: true # show raw DOM test
 
@@ -44,6 +43,9 @@ class KickAss extends Element
     @frames = new Frames(@)
     @table  = new Table(@)
 
+    @on 'result', (event)->
+      @table.record(event.lib, event.test, event.time)
+
     return @
 
   #
@@ -73,7 +75,6 @@ class KickAss extends Element
   # @return {KickAss} this
   #
   start: ->
-    @frames.prepare()
-    @frames.run(@tests[0])
+    @frames.run(@tests)
 
     return @

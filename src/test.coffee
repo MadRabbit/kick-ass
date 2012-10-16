@@ -13,7 +13,10 @@ class Test
     return @
 
   run: (name)->
+    time = new Date()
     @[name](@test[name], @options.size)
+
+    new Date() - time
 
   make: (test, size)->
     `for (var i=0; i < size; i++) {
