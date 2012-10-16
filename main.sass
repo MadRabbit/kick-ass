@@ -14,10 +14,11 @@ div.kick-ass
     width: 100%
 
     th, td
-      border:     1px solid grey
+      border:       1px solid grey
       border-left:  none
       border-right: none
       padding:      .1em .5em
+      text-align:   left
 
     th
       background:   rgba(0,0,0,.05)
@@ -28,4 +29,14 @@ div.kick-ass
 
     tr:nth-child(2n+1)
       background: rgba(0,0,0,.025)
+
+  .frames
+    position: absolute
+    left:     -999em
+    top:      -999em
+
+    iframe
+      width:  1px
+      height: 1px
+      border: none
 
