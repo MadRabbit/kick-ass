@@ -6,9 +6,9 @@
 class KickAss extends Element
   extend:
     Options:
-      size: 200    # the amount of dom elements to be created
-      runs: 4      # number of runs for every step
-      tests: null  # test names in an array or `null` to run everything
+      size:   200  # the amount of dom elements to be created
+      runs:   4    # number of runs for every step
+      tests:  null # test names in an array or `null` to run everything
       native: true # show raw DOM test
 
     Tests:
@@ -27,6 +27,9 @@ class KickAss extends Element
       insertAfter:   "Insert element after"
       insertBefore:  "Insert element before"
       remove:        "Remove element"
+
+    Libs:
+      ['lovely', 'rightjs', 'jquery', 'mootools', 'dojo', 'yui']
 
   #
   # Basic constructor, builds the UI
@@ -57,7 +60,7 @@ class KickAss extends Element
 
     @libs = if @options.native then ['Raw DOM'] else []
 
-    for key in ['lovely', 'rightjs', 'jquery', 'mootools', 'dojo', 'yui']
+    for key in @constructor.Libs
       if key of options
         @libs.push(key + "-" + options[key])
         delete(options[key])
@@ -70,4 +73,7 @@ class KickAss extends Element
   # @return {KickAss} this
   #
   start: ->
+    @frames.prepare()
+    @frames.run(@tests[0])
+
     return @

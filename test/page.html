@@ -5,6 +5,9 @@
       var lib = document.location.href.split('#').pop();
       if (lib != 'Raw DOM') {
         document.write('<scr'+'ipt src="libs/'+ lib +'.js"></scr'+'ipt>');
+        document.write('<scr'+'ipt src="tests/'+ lib.split('-')[0] +'.js"></scr'+'ipt>');
+      } else {
+        document.write('<scr'+'ipt src="tests/native.js"></scr'+'ipt>');
       }
     </script>
   </head>

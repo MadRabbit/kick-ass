@@ -18,8 +18,10 @@ Element = $.Element
 include 'src/kick_ass'
 include 'src/frames'
 include 'src/table'
+include 'src/test'
 
 exports = ext KickAss,
   version: '%{version}'
   Frames:  Frames
   Table:   Table
+  Test:    Test
