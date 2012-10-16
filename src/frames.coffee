@@ -47,7 +47,7 @@ class Frames extends Element
   run: (tests)->
     @prepare()
 
-    for name in [tests[0]]
+    for name in tests
       for lib of @tests
         @emit 'result', lib: lib, test: name, time: @tests[lib].run(name)
 

@@ -7,87 +7,136 @@
 #
 class Test
 
+  #
+  # Basic constructor
+  #
+  # @param {Object} options
+  # @param {Object} the lib specific test implementation
+  # @return {Test} this
+  #
   constructor: (options, test)->
     @options = options
     @test    = test
     return @
 
+  #
+  # Runs a test by name and retuns the result
+  #
+  # @param {String} test name
+  # @return {Number} test result
+  #
   run: (name)->
-    time = new Date()
-    @[name](@test[name], @options.size)
+    args = [@test[name]]
 
+    if 'make find'.indexOf(name) isnt -1
+      args.push(@options.size)
+    else
+      args.push(@test._list())
+
+      if 'insertBottom insertTop insertAfter insertBefore'.indexOf(name) isnt -1
+        args.push(@getElementsToInsert(@options.size))
+      else
+        args.push(@dummy)
+
+    # recording the actual evaluation time
+    time = new Date()
+    @[name] && @[name].apply(null, args)
     new Date() - time
 
-  make: (test, size)->
-    `for (var i=0; i < size; i++) {
-      test('someid'+i);
-    }`
-    return # nothing
+  # just a constant dummy function
+  dummy: ->
 
-  # find: function(test, length) {
-  #     for (var i=0; i < length; i++)
-  #       test('someid'+i);
-  #   },
   #
-  #   bind: function(test, list, dummy) {
-  #     test(list, dummy);
-  #   },
+  # Builds a list of DIV to test the insert operations
   #
-  #   unbind: function(test, list, dummy) {
-  #     test(list, dummy);
-  #   },
+  # @param {Number} list size
+  # @return {Array} list of DIVs
   #
-  #   set: function(test, list) {
-  #     test(list, {title: 'title'});
-  #   },
-  #
-  #   get: function(test, list) {
-  #     for (var i=0; i < 10; i++)
-  #       test(list, 'id');
-  #   },
-  #
-  #   style: function(test, list) {
-  #     test(list, { backgroundColor:"#ededed", color:"#fff" });
-  #   },
-  #
-  #   addClass: function(test, list) {
-  #     test(list, 'test-class');
-  #   },
-  #
-  #   removeClass: function(test, list) {
-  #     test(list, 'test-class');
-  #   },
-  #
-  #   update: function(test, list) {
-  #     test(list, '<li>some text</li>');
-  #   },
-  #
-  #   insertTop: function(test, list, elements) {
-  #     test(list, elements);
-  #   },
-  #
-  #   insertBottom: function(test, list, elements) {
-  #     test(list, elements);
-  #   },
-  #
-  #   insertAfter: function(test, list, elements) {
-  #     test(list, elements);
-  #   },
-  #
-  #   insertBefore: function(test, list, elements) {
-  #     test(list, elements);
-  #   },
-  #
-  #   remove: function(test, list) {
-  #     test(list);
-  #   },
-  #
-  # // util methods used in the process
-  #   dummy: function() {},
-  #
-  #   getElementsToInsert: function(size) {
-  #     for (var list=[], i=0; i < size; i++)
-  #       list.push(document.createElement('div'));
-  #
-  #     return list;
-  #   }
+  getElementsToInsert: (size)->
+    `for (var list=[], i=0; i < size; i++)
+      list.push(document.createElement('div'));`
+
+    return list
+
+#####################################################################
+# The actual tests
+#####################################################################
+
+  make: `function (test, size) {
+    for (var i=0; i < size; i++)
+      test('someid'+i);
+  }`
+
+  find: `function (test) {
+    for (var i=0; i < 10000; i++)
+      test('someid'+i);
+  }`
+
+  bind: `function (test, list, dummy) {
+    for (var i=0; i < 5; i++)
+      test(list, dummy);
+  }`
+
+  unbind: `function(test, list, dummy) {
+    for (var i=0; i < 5; i++)
+      test(list, dummy);
+  }`
+
+  set: `function(test, list) {
+    for (var i=0; i < 20; i++)
+      test(list, {title: 'title'});
+  }`
+
+
+  get: `function(test, list) {
+    for (var i=0; i < 50; i++)
+      test(list, 'id');
+  }`
+
+
+  style: `function(test, list) {
+    for (var i=0; i < 5; i++)
+      test(list, { backgroundColor:"#ededed", color:"#fff" });
+  }`
+
+  addClass: `function(test, list) {
+    for (var i=0; i < 5; i++)
+      test(list, 'test-class');
+  }`
+
+  removeClass: `function(test, list) {
+    for (var i=0; i < 5; i++)
+      test(list, 'test-class');
+  }`
+
+  update: `function(test, list) {
+    test(list, '<li>some text</li>');
+  }`
+
+
+  insertTop: `function(test, list, elements) {
+    //for (var i=0; i < 5; i++)
+      test(list, elements);
+  }`
+
+
+  insertBottom: `function(test, list, elements) {
+    //for (var i=0; i < 5; i++)
+      test(list, elements);
+  }`
+
+  insertAfter: `function(test, list, elements) {
+    //for (var i=0; i < 5; i++)
+      test(list, elements);
+  }`
+
+  insertBefore: `function(test, list, elements) {
+    //for (var i=0; i < 5; i++)
+      test(list, elements);
+  }`
+
+  remove: `function(test, list) {
+    test(list);
+  }`
+
+
