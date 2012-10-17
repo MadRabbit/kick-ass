@@ -4,7 +4,7 @@ var Test = {
   },
 
   make: function(id) {
-    new Element('ul', {'class': 'fromcode', id: id})
+    new Element('ul', {'class': 'test', id: id})
       .insert(new Element('li', {html: 'one'}))
       .insert(new Element('li', {html: 'two'}))
       .insert(new Element('li', {html: 'three'}))
