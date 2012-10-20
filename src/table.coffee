@@ -9,9 +9,10 @@ class Table extends Element
   # Constructor
   #
   # @param {KickAss} main object
+  # @param {String} table caption
   # @return {Table} this
   #
-  constructor: (main)->
+  constructor: (main, caption)->
     header = "<th></th>"
     footer = '<td></td>'
 
@@ -19,7 +20,10 @@ class Table extends Element
       header += "<th>#{name}</th>"
       footer += "<td></td>"
 
-    super 'table', html: "<thead><tr>#{header}</tr></thead>"
+    @$super 'table', html: """
+      <caption>#{caption}</caption>
+      <thead><tr>#{header}</tr></thead>
+    """
 
     @lookup = {}
 
@@ -34,7 +38,9 @@ class Table extends Element
 
     @append "<tfoot><tr>#{footer}</tr></tfoot>"
 
-    @insertTo(main)
+    @hide().insertTo(main, 'top')
+
+
 
   #
   # Displays the stats in the table
@@ -43,15 +49,18 @@ class Table extends Element
   # @return {Table} this
   #
   display: (stats)->
-    results = stats.results()
-    summary = stats.summary()
+    summary = {}
+
+    for lib, results of stats
+      summary[lib] = 0
+      for test, time of results
+        summary[lib] += time
+        @lookup[test+"-"+lib]._.innerHTML = ''+ time
+
+
     footer  = @find('tfoot td').slice(1)
-
-    for key of results
-      @lookup[key]._.innerHTML = ''+ results[key]
-
 
     for key of summary
       footer.shift()._.innerHTML = ''+ summary[key]
 
-    return @
+    @show()

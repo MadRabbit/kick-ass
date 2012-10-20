@@ -7,6 +7,7 @@ class KickAss extends Element
   extend:
     Options:
       size:   800  # the amount of dom elements to be created
+      runs:   4    # how many times a test should be run
       tests:  null # test names in an array or `null` to run everything
       native: true # show raw DOM test
 
@@ -42,14 +43,10 @@ class KickAss extends Element
     super 'div', class: 'kick-ass'
 
     @frames = new Frames(@)
-    @table  = new Table(@)
     @stats  = new Stats(@)
 
     @on 'result', (event)->
-      @stats.record(event.lib, event.test, event.time)
-
-    @on 'finish', ->
-      @table.display(@stats)
+      @stats.record(@runs, event.lib, event.test, event.time)
 
     return @
 
@@ -77,6 +74,46 @@ class KickAss extends Element
   # @return {KickAss} this
   #
   start: ->
-    @frames.run(@tests)
+    @clear(); @frames.insertTo(@)
 
-    @emit 'finish'
+    @runs = 0
+    @nextRun()
+
+    return @
+
+  #
+  # Renders the summary table
+  #
+  # @return {KickAss} this
+  #
+  finish: ->
+    table = new Table(@, "Summary")
+    table.display(@stats.summary())
+
+    return @
+
+
+  #
+  # Makes the next run
+  #
+  # @return {KickAss} this
+  #
+  nextRun: ->
+    table  = new Table(@, "Run: #{@runs + 1}")
+
+    window.setTimeout =>
+      @frames.run(@tests)
+
+      table.display(@stats.results(@runs))
+
+      @runs += 1
+
+      if @runs < @options.runs
+        @nextRun()
+      else
+        @finish()
+
+    , 100
+
+    return @
+
