@@ -28,7 +28,7 @@ class Stats
   # @return {Stats} this
   #
   record: (run, lib, test, result)->
-    @_res[run][lib][test] = result
+    @_res[run][lib][test] = result || 1
 
   #
   # Returns a refernce to the results object
@@ -58,11 +58,37 @@ class Stats
     # calculating the average
     for lib, tests of summary
       for test, times of tests
-        # TODO kick out the off the beam data
-        sum = 0
-        for time in times
-          sum += time
-
-        summary[lib][test] = Math.round(sum / times.length)
+        summary[lib][test] = dirty_average(times)
 
     return summary
+
+
+# private
+
+#
+# A simple filter that kicks out the obviously off the beam records
+# and then calculates the average of the remaining items
+#
+# TODO replace me with an actually scientific calculations :)
+#
+dirty_average = (items)->
+  clean = []; threshold = 2; avg = 0
+
+  # kicking out the off-the-beam values
+  for i1 in items
+    off_the_beam = true
+
+    for i2 in items
+      if i1 isnt i2
+        diff = if i1 < i2 then i2 / i1 else i1 / i2
+        off_the_beam &= diff > threshold # checking if it's consistently off the beam
+
+    clean.push(i1) unless off_the_beam
+
+  # calculating the average
+  for item in clean
+    avg += item
+
+  Math.round(avg / clean.length || 1)
+
+
