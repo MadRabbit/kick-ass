@@ -33,8 +33,9 @@ class Frames extends Element
   prepare: ->
     @tests = {}
     for lib in @main.libs
-      window.frames['kick_ass_'+ lib].document.body.innerHTML = ''
-      @tests[lib] = new Test(@main.options, window.frames['kick_ass_'+ lib].Test)
+      frame = window.frames['kick_ass_'+ lib]
+      frame.document.body.innerHTML = ''
+      @tests[lib] = new Test(@main.options, frame.Test)
 
     return @
 

@@ -85,10 +85,12 @@ dirty_average = (items)->
 
     clean.push(i1) unless off_the_beam
 
+  clean = items if clean.length is 0 # failsafe in case it kicked out everything
+
   # calculating the average
   for item in clean
     avg += item
 
-  Math.round(avg / clean.length || 1)
+  Math.round(avg / (clean.length || 1))
 
 

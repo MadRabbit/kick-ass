@@ -29,9 +29,6 @@ class KickAss extends Element
       insertBefore:  "Insert element before"
       remove:        "Remove element"
 
-    Libs:
-      ['lovely', 'rightjs', 'jquery', 'mootools', 'dojo', 'yui']
-
   #
   # Basic constructor, builds the UI
   #
@@ -39,8 +36,9 @@ class KickAss extends Element
   # @return {KickAss} this
   #
   constructor: (options)->
-    options = @setOptions(options)
     super 'div', class: 'kick-ass'
+
+    @setOptions(options)
 
     @frames = new Frames(@)
     @stats  = new Stats(@)
@@ -61,12 +59,10 @@ class KickAss extends Element
     @tests  = @options.tests || core.Hash.keys(KickAss.Tests)
     @libs   = if @options.native then ['Raw DOM'] else []
 
-    for key in @constructor.Libs
-      if key of options
-        @libs.push(key + "-" + options[key])
-        delete(options[key])
+    for key in options.libs
+      @libs.push(key)
 
-    return options
+    return @
 
   #
   # Starts the test running

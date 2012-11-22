@@ -8,9 +8,12 @@
       Lovely(["kick-ass", "dom", "ui"], function(KickAss, $) {
         $(function() {
           var test = new KickAss({
-            lovely:  '1.4.1',
-            jquery:  '1.8.2',
-            rightjs: '2.3.1'
+            libs: [
+              'lovely-1.4.1',
+              'lovely2-hack',
+              'rightjs-2.3.1',
+              'jquery-1.8.2'
+            ]
           });
 
           test.insertTo('#test-container')
