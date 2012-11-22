@@ -2,13 +2,19 @@
 <html>
   <head>
     <script>
-      var lib = document.location.href.split('#').pop();
-      if (lib.indexOf('DOM') == -1) {
-        document.write('<scr'+'ipt src="libs/'+ lib +'.js"></scr'+'ipt>');
-        document.write('<scr'+'ipt src="tests/'+ lib.split('-')[0] +'.js"></scr'+'ipt>');
-      } else {
-        document.write('<scr'+'ipt src="tests/native.js"></scr'+'ipt>');
-      }
+      var lib  = document.location.href.split('#').pop();
+      var test = lib.indexOf('DOM') == -1 ? lib.split('-')[0] : 'native'
+
+      lib.indexOf('DOM') > -1 && (lib = 'native');
+      document.write('<scr'+'ipt src="libs/'+ lib +'.js"></scr'+'ipt>');
+
+      var time = new Date();
+    </script>
+    <script>
+      time = new Date() - time;
+    </script>
+    <script>
+      document.write('<scr'+'ipt src="tests/'+ test +'.js"></scr'+'ipt>');
     </script>
   </head>
   <body>
