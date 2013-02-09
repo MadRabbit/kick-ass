@@ -32,10 +32,27 @@ class Frames extends Element
   #
   prepare: ->
     @tests = {}
+
     for lib in @main.libs
       frame = window.frames['kick_ass_'+ lib]
+      return false if !frame.Test or !frame.document.body
       frame.document.body.innerHTML = ''
-      @tests[lib] = new Test(@main.options, frame.Test, frame);
+      @tests[lib] = new Test(@main.options, frame)
+
+    return @
+
+  #
+  # Waits for all the libraries to load
+  #
+  # @param {Function} callback
+  # @return {Frames} this
+  #
+  whenReady: (callback)->
+    if @prepare() is false
+      setTimeout((=> @whenReady(callback)), 50)
+    else
+      console.log('ready')
+      callback()
 
     return @
 
@@ -47,8 +64,6 @@ class Frames extends Element
   # @return {Frames} this
   #
   run: (tests)->
-    @prepare()
-
     for name in tests
       for lib of @tests
         @emit 'result', lib: lib, test: name, time: @tests[lib].run(name)

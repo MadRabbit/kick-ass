@@ -3,14 +3,14 @@
   <head>
     <script>
       var lib  = document.location.href.split('#').pop();
-      var test = lib === 'native' ? lib.split('-')[0] : 'native';
-      var time = new Date();
-
       lib !== 'native' &&
       document.write('<scr'+'ipt src="libs/'+ lib +'.js"></scr'+'ipt>');
+
+      var time = new Date();
     </script>
     <script>
       var init_time = lib === 'native' ? 0 : new Date() - time;
+      var test = lib == 'native' ? 'native' : lib.split('-')[0];
       document.write('<scr'+'ipt src="tests/'+ test +'.js"></scr'+'ipt>');
     </script>
   </head>

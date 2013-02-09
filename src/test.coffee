@@ -11,14 +11,13 @@ class Test
   # Basic constructor
   #
   # @param {Object} options
-  # @param {Object} the lib specific test implementation
   # @param {Window} the test frame context
   # @return {Test} this
   #
-  constructor: (options, test, frame)->
+  constructor: (options, frame)->
     @options = options
-    @test    = test
     @frame   = frame
+    @test    = frame.Test
     return @
 
   #
@@ -30,7 +29,7 @@ class Test
   run: (name)->
     args = [@test[name]]
 
-    if name == 'init'
+    if name is 'init'
       return @frame.init_time
 
     if 'make findById'.indexOf(name) isnt -1
@@ -125,23 +124,23 @@ class Test
 
 
   insertTop: `function(test, list, elements) {
-    //for (var i=0; i < 5; i++)
+    for (var i=0; i < 5; i++)
       test(list, elements);
   }`
 
 
   insertBottom: `function(test, list, elements) {
-    //for (var i=0; i < 5; i++)
+    for (var i=0; i < 5; i++)
       test(list, elements);
   }`
 
   insertAfter: `function(test, list, elements) {
-    //for (var i=0; i < 5; i++)
+    for (var i=0; i < 5; i++)
       test(list, elements);
   }`
 
   insertBefore: `function(test, list, elements) {
-    //for (var i=0; i < 5; i++)
+    for (var i=0; i < 5; i++)
       test(list, elements);
   }`
 

@@ -71,7 +71,7 @@ class KickAss extends Element
   # @return {KickAss} this
   #
   start: ->
-    @clear().append(@frames);
+    @clear().append(@frames)
 
     @runs = 0
     @nextRun()
@@ -98,19 +98,19 @@ class KickAss extends Element
   nextRun: ->
     table  = new Table(@, "Run: #{@runs + 1}")
 
-    window.setTimeout =>
-      @frames.run(@tests)
+    setTimeout =>
+      @frames.whenReady =>
+        @frames.run(@tests)
 
-      table.display(@stats.results(@runs))
+        table.display(@stats.results(@runs))
 
-      @runs += 1
+        @runs += 1
 
-      if @runs < @options.runs
-        @nextRun()
-      else
-        @finish()
-
-    , 100
+        if @runs < @options.runs
+          @nextRun()
+        else
+          @finish()
+    , 10 # rendering current table
 
     return @
 
