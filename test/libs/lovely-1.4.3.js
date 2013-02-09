@@ -1,9 +1,9 @@
 /**
- * lovely.io 'core' module v1.4.0
+ * lovely.io 'core' module v1.4.1
  *
- * Copyright (C) 2012 Nikolay Nemshilov
+ * Copyright (C) 2013 Nikolay Nemshilov
  */
-(function(e){var t=this,n,r,i,s,o,u,a,f,l,c,Class,Events,h,p,Hash,d,List,v,Lovely,m,Options,g,y,b,w,E,S,x,T,N,C,k,L,A,O,M,_,D={}.hasOwnProperty;Lovely=function(){var e,t,r,i,s,o,u,a,f,l,c,h,p,d,v,m;e=n(arguments),i=A(e[0])?e.shift():null,l=L(e[0])?e.shift():{},a=N(e[0])?e.shift():[],t=C(e[0])?e.shift():function(){},"hostUrl"in l||(l.hostUrl=Lovely.hostUrl||x()),"baseUrl"in l||(l.baseUrl=Lovely.baseUrl||l.hostUrl),"waitSeconds"in l||(l.waitSeconds=Lovely.waitSeconds),l.hostUrl[l.hostUrl.length-1]==="/"||(l.hostUrl+="/"),l.baseUrl[l.baseUrl.length-1]==="/"||(l.baseUrl+="/");for(o=p=0,v=a.length;p<v;o=++p)f=a[o],f in Lovely.bundle&&(a[o]=""+f+"-"+Lovely.bundle[f]);r=O(a,t,i);if(!r()){M.push(r),s=document.getElementsByTagName("head")[0];for(o=d=0,m=a.length;d<m;o=++d)u=a[o],h=(u[0]==="."?l.baseUrl:l.hostUrl)+u+".js",u=a[o]=a[o].replace(/^[\.\/]+/,""),!T(u)&&!T(u,Lovely.loading)&&u.indexOf("~")===-1&&(c=document.createElement("script"),c.src=h.replace(/([^:])\/\//g,"$1/"),c.async=!0,c.type="text/javascript",c.onload=b,s.appendChild(c),Lovely.loading[u]=c)}},M=[],b=function(){return t.setTimeout(function(){var e,t,n,r,i;e=[];for(t=r=0,i=M.length;r<i;t=++r)n=M[t],n()||e.push(n);e.length!==M.length&&(M=e,b())},0)},O=function(e,n,r){return function(){var i,s,o,u,a;s=[];for(u=0,a=e.length;u<a;u++){i=e[u];if(!(i=T(i)))return!1;s.push(i)}return(o=n.apply(t,s))&&r&&(Lovely.modules[r]=o,delete Lovely.loading[r],b()),!0}},T=function(e,t){var n,r,i,s,o;t=t||Lovely.modules,e=e.replace(/~/g,""),s=(e.match(/\-\d+\.\d+\.\d+.*$/)||[""])[0],i=e.substr(0,e.length-s.length),s=s.substr(1);if(!(e=t[e])){o=[];for(n in t)(r=n.match(/^(.+?)-(\d+\.\d+\.\d+.*?)$/))&&r[1]===i&&o.push(n);e=t[o.sort()[o.length-1]]}return e},x=function(){var e,n,r,i,s,o;if(t.document){i=document.getElementsByTagName("script"),n=/^(.*?\/?)core(-.+)?\.js/;for(s=0,o=i.length;s<o;s++){r=i[s];if(e=(r.getAttribute("src")||"").match(n))return e[1]}}return Lovely.hostUrl},m=Object.prototype.toString,f=Array.prototype.slice,h=Function.prototype.bind||function(){var e,t,r;return e=n(arguments),t=e.shift(),r=this,function(){return r.apply(t,e.concat(n(arguments)))}},g=String.prototype.trim||function(){var e,t,n;n=this.replace(/^\s\s*/,""),e=n.length,t=/\s/;while(t.test(n.charAt(--e)));return n.slice(0,e+1)},n=function(e){return f.call(e,0)},d=function(e){return new List(e)},p=function(e){return new Hash(e)},S=function(e,t){t==null&&(t={});var n;for(n in t){if(!D.call(t,n))continue;e[n]=t[n]}return e},y=function(){var e;return e=n(arguments),h.apply(e.shift(),e)},_=function(e){return g.call(e)},A=function(e){return typeof e==="string"},k=function(e){return typeof e==="number"&&!isNaN(e)},C=function(e){return typeof e==="function"&&m.call(e)!=="[object RegExp]"},N=function(e){return m.call(e)==="[object Array]"||e instanceof List},L=function(e){return m.call(e)==="[object Object]"},w=function(e){return N(e)?e:[e]},Class=function(t,n){var r,i,s,o;C(t)||(n=t,t=Class),n||(n={}),D.call(n,"constructor")?r=n.constructor:r=function(){return this.$super===e?this:this.$super.apply(this,arguments)},i=function(){},i.prototype=t.prototype,r.prototype=new i;if(t!==Class){for(s in t){if(!D.call(t,s))continue;o=t[s],r[s]=o}r.prototype.$super=function(){return this.$super=t.prototype.$super,t.apply(this,arguments)},C(t.prototype.whenInherited)&&t.prototype.whenInherited.call(t,r)}return r.__super__=t,r.prototype.constructor=r,(r.include=Class.include).apply(r,w(n.include||[])),(r.extend=Class.extend).apply(r,w(n.extend||[])),r.inherit=Class.inherit,delete n.extend,delete n.include,delete n.constructor,r.include(n)},S(Class,{include:function(){var e,t,n,r,i,s,o;for(s=0,o=arguments.length;s<o;s++){n=arguments[s],n||(n={});for(e in n){if(!(i=this.prototype[e]||!1)){r=this.__super__;while(r){if(e in r.prototype){C(r.prototype[e])&&(i=r.prototype[e]);break}r=r.__super__}}t=n[e],this.prototype[e]=function(e,t){return t?function(){return this.$super=t,e.apply(this,arguments)}:e}(t,i)}}return this},extend:function(){var e,t,n;for(t=0,n=arguments.length;t<n;t++)e=arguments[t],S(this,e);return this},inherit:function(e){return new Class(this,e)}}),List=new Class(Array,{constructor:function List(t){return t!==e&&c.apply(this,[0,0].concat(t)),this},slice:function(){return new this.constructor(f.apply(this,arguments))},concat:function(e){return new this.constructor(n(this).concat(n(e)))},forEach:function(){return v(s,this,arguments),this},map:function(){return new List(v(o,this,arguments))},filter:function(){return new this.constructor(v(i,this,arguments))},reject:function(){return new this.constructor(v(a,this,arguments))},some:function(){return v(l,this,arguments)},every:function(){return v(r,this,arguments)},toArray:function(){return n(this)},toString:function(){return"#<List ["+n(this)+"]>"}}),u=Array.prototype,f=u.slice,c=u.splice,s=u.forEach,o=u.map,i=u.filter,a=function(e,t){return i.call(this,function(){return!e.apply(t,arguments)})},l=u.some,r=u.every,v=function(e,t,r){var i,s;return typeof r[0]=="string"&&(s=n(r),i=s.shift(),t.length!==0&&typeof t[0][i]=="function"?r=[function(e){return e[i].apply(e,s)}]:r=[function(e){return e[i]}]),e.apply(t,r)},Hash=new Class({_:null,constructor:function Hash(e){return this._=e||{},this}}),Hash.include=function(e){var t,r;Class.include.apply(Hash,arguments),r=[];for(t in e)r.push(function(e){return Hash[e]=function(){var t,r;return t=n(arguments),r=new Hash(t.shift()),t=r[e].apply(r,t),t instanceof Hash&&(t=t._),t}}(t));return r},Hash.include({keys:function(){var e,t,n;t=this._,n=[];for(e in t){if(!D.call(t,e))continue;n.push(e)}return n},values:function(){var e,t,n,r;n=this._,r=[];for(e in n){if(!D.call(n,e))continue;t=n[e],r.push(t)}return r},empty:function(){var e,t;t=this._;for(e in t){if(!D.call(t,e))continue;return!1}return!0},clone:function(){return this.merge()},forEach:function(e,t){var n,r,i;r=this._;for(n in r){if(!D.call(r,n))continue;i=r[n],e.call(t,n,i,r)}return this},map:function(e,t){var n,r,i,s;r=this._,i=[];for(n in r){if(!D.call(r,n))continue;s=r[n],i.push(e.call(t,n,s,r))}return i},filter:function(e,t){var n,r,i,s;i=this._,n={};for(r in i){if(!D.call(i,r))continue;s=i[r],e.call(t,r,s,i)&&(n[r]=i[r])}return new Hash(n)},reject:function(e,t){var n,r,i,s;i=this._,n={};for(r in i){if(!D.call(i,r))continue;s=i[r],e.call(t,r,s,i)||(n[r]=i[r])}return new Hash(n)},merge:function(){var e,t,r,i,s;e=n(arguments),t={},e.unshift(this._);while(e.length>0){i=e.shift(),i instanceof Hash&&(i=i._);for(r in i){if(!D.call(i,r))continue;s=i[r],t[r]=!L(s)||s instanceof Class?i[r]:Hash.merge(r in t?t[r]:{},s)}}return new Hash(t)},toObject:function(){return this._}}),Events={_listeners:null,on:function(){var e,t,n,r,i,s,o,u,a;e=f.call(arguments,2),i=arguments[0],n=arguments[1],t=!1,typeof n==="string"&&(n=this[n],t=!0),s=this._listeners===null?this._listeners=[]:this._listeners;if(typeof i==="string"){a=i.split(",");for(o=0,u=a.length;o<u;o++)r=a[o],s.push({e:r,c:n,a:e,n:t})}else if(typeof i==="object")for(r in i)this.on(r,i[r]);return this},no:function(){var t,n,r,i,s,o,u,a,l;t=f.call(arguments,2),i=arguments[0],n=arguments[1],typeof n==="string"&&(n=this[n]),o=this._listeners===null?this._listeners=[]:this._listeners;switch(typeof i){case"string":l=i.split(",");for(u=0,a=l.length;u<a;u++){r=l[u],s=0;while(s<o.length)o[s].e===r&&(o[s].c===n||n===e)&&o.splice(s--,1),s++}break;case"function":s=0;while(s<o.length)o[s].c===i&&o.splice(s--,1),s++;break;case"object":for(r in i)this.no(r,i[r])}return this},ones:function(){var t,n,r,i,s,o,u,a,l,c,h,p,d,v;u=0,t=f.call(arguments,2),s=arguments[0],n=arguments[1],typeof n==="string"&&(n=this[n]),o=this._listeners===null?this._listeners=[]:this._listeners;switch(typeof s){case"string":v=s.split(",");for(a=0,h=v.length;a<h;a++){i=v[a];for(l=0,p=o.length;l<p;l++)r=o[l],u|=r.e===i&&(r.c===n||n===e)}break;case"function":for(c=0,d=o.length;c<d;c++)r=o[c],u|=r.c===s;break;case"object":for(i in s)u|=this.ones(i,s[i])}return u===1},emit:function(){var e,t,r,i,s,o;e=n(arguments),r=e.shift(),o=this._listeners||[];for(i=0,s=o.length;i<s;i++)t=o[i],t.e===r&&t.c.apply(this,t.a.concat(e));return this}},Options={options:{},setOptions:function(e){var t,n;n=this.constructor,t={};while(n){if("Options"in n){t=n.Options;break}n=n.__super__}return this.options=Hash.merge(t,e),this}},E=S(Lovely,{version:"1.4.0",modules:{},loading:{},baseUrl:"",hostUrl:"",module:T,bundle:{},A:n,L:d,H:p,ext:S,bind:y,trim:_,isString:A,isNumber:k,isFunction:C,isArray:N,isObject:L,Class:Class,List:List,Hash:Hash,Events:Events,Options:Options}),Lovely.modules["core-"+Lovely.version]=Lovely,t.Lovely=Lovely}).apply(this)
+(function(t){var n,r,e,i,s,o,u,c,l,a,Class,Events,f,h,Hash,p,List,g,Lovely,m,Options,y,d,_,v,b,w,U,j,O,x,A,$,E,k,S,N,L=this,T={}.hasOwnProperty;Lovely=function(){var t,r,e,i,s,o,u,c,l,a,f,h,p,g,m,y;t=n(arguments),i=E(t[0])?t.shift():null,a=$(t[0])?t.shift():{},c=O(t[0])?t.shift():[],r=x(t[0])?t.shift():function(){},"hostUrl"in a||(a.hostUrl=Lovely.hostUrl||U()),"baseUrl"in a||(a.baseUrl=Lovely.baseUrl||a.hostUrl),"waitSeconds"in a||(a.waitSeconds=Lovely.waitSeconds),"/"===a.hostUrl[a.hostUrl.length-1]||(a.hostUrl+="/"),"/"===a.baseUrl[a.baseUrl.length-1]||(a.baseUrl+="/");for(o=p=0,m=c.length;m>p;o=++p)l=c[o],l in Lovely.bundle&&(c[o]=""+l+"-"+Lovely.bundle[l]);if(e=k(c,r,i),!e())for(S.push(e),s=document.getElementsByTagName("head")[0],o=g=0,y=c.length;y>g;o=++g)u=c[o],h=("."===u[0]?a.baseUrl:a.hostUrl)+u+".js",u=c[o]=c[o].replace(/^[\.\/]+/,""),j(u)||j(u,Lovely.loading)||-1!==u.indexOf("~")||(f=document.createElement("script"),f.src=h.replace(/([^:])\/\//g,"$1/"),f.async=!0,f.type="text/javascript",f.onload=_,s.appendChild(f),Lovely.loading[u]=f)},S=[],_=function(){return L.setTimeout(function(){var t,n,r,e,i;for(t=[],n=e=0,i=S.length;i>e;n=++e)r=S[n],r()||t.push(r);t.length!==S.length&&(S=t,_())},0)},k=function(t,n,r){return function(){var e,i,s,o,u;for(i=[],o=0,u=t.length;u>o;o++){if(e=t[o],!(e=j(e)))return!1;i.push(e)}return(s=n.apply(L,i))&&r&&(Lovely.modules[r]=s,delete Lovely.loading[r],_()),!0}},j=function(t,n){var r,e,i,s,o;if(n=n||Lovely.modules,t=t.replace(/~/g,""),s=(t.match(/\-\d+\.\d+\.\d+.*$/)||[""])[0],i=t.substr(0,t.length-s.length),s=s.substr(1),!(t=n[t])){o=[];for(r in n)(e=r.match(/^(.+?)-(\d+\.\d+\.\d+.*?)$/))&&e[1]===i&&o.push(r);t=n[o.sort()[o.length-1]]}return t},U=function(){var t,n,r,e,i,s;if(L.document)for(e=document.getElementsByTagName("script"),n=/^(.*?\/?)core(-.+)?\.js/,i=0,s=e.length;s>i;i++)if(r=e[i],t=(r.getAttribute("src")||"").match(n))return Lovely.hostUrl=t[1];return Lovely.hostUrl},m=Object.prototype.toString,c=Array.prototype.slice,f=Function.prototype.bind||function(){var t,r,e;return t=n(arguments),r=t.shift(),e=this,function(){return e.apply(r,t.concat(n(arguments)))}},y=String.prototype.trim||function(){var t,n,r;for(r=this.replace(/^\s\s*/,""),t=r.length,n=/\s/;n.test(r.charAt(--t)););return r.slice(0,t+1)},n=function(t){return c.call(t,0)},p=function(t){return new List(t)},h=function(t){return new Hash(t)},w=function(t,n){null==n&&(n={});var r;for(r in n)T.call(n,r)&&(t[r]=n[r]);return t},d=function(){var t;return t=n(arguments),f.apply(t.shift(),t)},N=function(t){return y.call(t)},E=function(t){return"string"===typeof t},A=function(t){return"number"===typeof t&&!isNaN(t)},x=function(t){return"function"===typeof t&&"[object RegExp]"!==m.call(t)},O=function(t){return"[object Array]"===m.call(t)||t instanceof List},$=function(t){return"[object Object]"===m.call(t)},v=function(t){return O(t)?t:[t]},Class=function(n,r){var e,i,s,o;if(x(n)||(r=n,n=Class),r||(r={}),e=T.call(r,"constructor")?r.constructor:function(){return this.$super===t?this:this.$super.apply(this,arguments)},i=function(){},i.prototype=n.prototype,e.prototype=new i,n!==Class){for(s in n)T.call(n,s)&&(o=n[s],e[s]=o);e.prototype.$super=function(){return this.$super=n.prototype.$super,n.apply(this,arguments)},x(n.prototype.whenInherited)&&n.prototype.whenInherited.call(n,e)}return e.__super__=n,e.prototype.constructor=e,(e.include=Class.include).apply(e,v(r.include||[])),(e.extend=Class.extend).apply(e,v(r.extend||[])),e.inherit=Class.inherit,delete r.extend,delete r.include,delete r.constructor,e.include(r)},w(Class,{include:function(){var t,n,r,e,i,s,o;for(s=0,o=arguments.length;o>s;s++){r=arguments[s],r||(r={});for(t in r){if(!(i=this.prototype[t]||!1))for(e=this.__super__;e;){if(t in e.prototype){x(e.prototype[t])&&(i=e.prototype[t]);break}e=e.__super__}n=r[t],this.prototype[t]=function(t,n){return n?function(){return this.$super=n,t.apply(this,arguments)}:t}(n,i)}}return this},extend:function(){var t,n,r;for(n=0,r=arguments.length;r>n;n++)t=arguments[n],w(this,t);return this},inherit:function(t){return new Class(this,t)}}),List=new Class(Array,{constructor:function List(n){return n!==t&&a.apply(this,[0,0].concat(n)),this},slice:function(){return new this.constructor(c.apply(this,arguments))},concat:function(t){return new this.constructor(n(this).concat(n(t)))},forEach:function(){return g(i,this,arguments),this},map:function(){return new List(g(s,this,arguments))},filter:function(){return new this.constructor(g(e,this,arguments))},reject:function(){return new this.constructor(g(u,this,arguments))},some:function(){return g(l,this,arguments)},every:function(){return g(r,this,arguments)},toArray:function(){return n(this)},toString:function(){return"#<List ["+n(this)+"]>"}}),o=Array.prototype,c=o.slice,a=o.splice,i=o.forEach,s=o.map,e=o.filter,u=function(t,n){return e.call(this,function(){return!t.apply(n,arguments)})},l=o.some,r=o.every,g=function(t,r,e){var i,s;return"string"===typeof e[0]&&(s=n(e),i=s.shift(),e=0!==r.length&&"function"===typeof r[0][i]?[function(t){return t[i].apply(t,s)}]:[function(t){return t[i]}]),t.apply(r,e)},Hash=new Class({_:null,constructor:function Hash(t){return this._=t||{},this}}),Hash.include=function(t){var r,e;Class.include.apply(Hash,arguments),e=[];for(r in t)e.push(function(t){return Hash[t]=function(){var r,e;return r=n(arguments),e=new Hash(r.shift()),r=e[t].apply(e,r),r instanceof Hash&&(r=r._),r}}(r));return e},Hash.include({keys:function(){var t,n,r;n=this._,r=[];for(t in n)T.call(n,t)&&r.push(t);return r},values:function(){var t,n,r,e;r=this._,e=[];for(t in r)T.call(r,t)&&(n=r[t],e.push(n));return e},empty:function(){var t,n;n=this._;for(t in n)if(T.call(n,t))return!1;return!0},clone:function(){return this.merge()},forEach:function(t,n){var r,e,i;e=this._;for(r in e)T.call(e,r)&&(i=e[r],t.call(n,r,i,e));return this},map:function(t,n){var r,e,i,s;e=this._,i=[];for(r in e)T.call(e,r)&&(s=e[r],i.push(t.call(n,r,s,e)));return i},filter:function(t,n){var r,e,i,s;i=this._,r={};for(e in i)T.call(i,e)&&(s=i[e],t.call(n,e,s,i)&&(r[e]=i[e]));return new Hash(r)},reject:function(t,n){var r,e,i,s;i=this._,r={};for(e in i)T.call(i,e)&&(s=i[e],t.call(n,e,s,i)||(r[e]=i[e]));return new Hash(r)},merge:function(){var t,r,e,i,s;for(t=n(arguments),r={},t.unshift(this._);t.length>0;){i=t.shift(),i instanceof Hash&&(i=i._);for(e in i)T.call(i,e)&&(s=i[e],r[e]=!$(s)||s instanceof Class?i[e]:Hash.merge(e in r?r[e]:{},s))}return new Hash(r)},toObject:function(){return this._}}),Events={_listeners:null,on:function(){var t,n,r,e,i,s,o,u,l;if(t=c.call(arguments,2),i=arguments[0],r=arguments[1],n=!1,"string"===typeof r&&(r=this[r],n=!0),s=null===this._listeners?this._listeners=[]:this._listeners,"string"===typeof i)for(l=i.split(","),o=0,u=l.length;u>o;o++)e=l[o],s.push({e:e,c:r,a:t,n:n});else if("object"===typeof i)for(e in i)this.on(e,i[e]);return this},no:function(){var n,r,e,i,s,o,u,l,a;switch(n=c.call(arguments,2),i=arguments[0],r=arguments[1],"string"===typeof r&&(r=this[r]),o=null===this._listeners?this._listeners=[]:this._listeners,typeof i){case"string":for(a=i.split(","),u=0,l=a.length;l>u;u++)for(e=a[u],s=0;o.length>s;)o[s].e!==e||o[s].c!==r&&r!==t||o.splice(s--,1),s++;break;case"function":for(s=0;o.length>s;)o[s].c===i&&o.splice(s--,1),s++;break;case"object":for(e in i)this.no(e,i[e])}return this},ones:function(){var n,r,e,i,s,o,u,l,a,f,h,p,g,m;switch(u=0,n=c.call(arguments,2),s=arguments[0],r=arguments[1],"string"===typeof r&&(r=this[r]),o=null===this._listeners?this._listeners=[]:this._listeners,typeof s){case"string":for(m=s.split(","),l=0,h=m.length;h>l;l++)for(i=m[l],a=0,p=o.length;p>a;a++)e=o[a],u|=e.e===i&&(e.c===r||r===t);break;case"function":for(f=0,g=o.length;g>f;f++)e=o[f],u|=e.c===s;break;case"object":for(i in s)u|=this.ones(i,s[i])}return 1===u},emit:function(){var t,r,e,i,s,o;for(t=n(arguments),e=t.shift(),o=this._listeners||[],i=0,s=o.length;s>i;i++)r=o[i],r.e===e&&r.c.apply(this,r.a.concat(t));return this}},Options={options:{},setOptions:function(t){var n,r;for(r=this.constructor,n={};r;){if("Options"in r){n=r.Options;break}r=r.__super__}return this.options=Hash.merge(n,t),this}},b=w(Lovely,{version:"1.4.1",modules:{},loading:{},baseUrl:"",hostUrl:"",module:j,bundle:{},A:n,L:p,H:h,ext:w,bind:d,trim:N,isString:E,isNumber:A,isFunction:x,isArray:O,isObject:$,Class:Class,List:List,Hash:Hash,Events:Events,Options:Options}),Lovely.modules["core-"+Lovely.version]=Lovely,L.Lovely=Lovely}).apply(this);
 /**
  * lovely.io 'dom' module v1.4.2
  *
@@ -13,39 +13,39 @@ Lovely("dom-1.4.2", [], function() {
   var undefined = [][0];
   var global = this;
   var exports = {};
-  
+
   var $, A, Browser, Class, Document, Element, Element_clean_style, Element_computed_styles, Element_create_fragment, Element_events, Element_fragment, Element_insert, Element_make_listeners, Element_parse_style, Element_read_styles, Element_recursively_collect, Element_tmp_cont, Element_wraps, Event, Events_delegation, Form, HTML, Input, L, NodeList, Ready_documents, Style, UID_KEY, UID_NUM, Window, Wrapper, Wrapper_Cache, bind, camelize, core, current_Document, dasherize, delegation_listeners, dimensions_hash, document, elements_cache, ensure_array, exports, ext, extract_scripts, focusio_boobler, global_eval, isArray, isElement, isObject, isString, mouseio_activate, mouseio_emit, mouseio_handler, mouseio_inactive, mouseio_index, mouseio_reset, trim, uid, window, wrap;
-  
+
   core = Lovely.module('core');
-  
+
   A = core.A;
-  
+
   L = core.L;
-  
+
   ext = core.ext;
-  
+
   trim = core.trim;
-  
+
   bind = core.bind;
-  
+
   Class = core.Class;
-  
+
   isArray = core.isArray;
-  
+
   isObject = core.isObject;
-  
+
   isString = core.isString;
-  
+
   window = global;
-  
+
   document = window.document;
-  
+
   HTML = document.documentElement;
-  
+
   isElement = function(value) {
     return value != null && value.nodeType === 1;
   };
-  
+
   camelize = function(string) {
     if (string.indexOf('-') === -1) {
       return string;
@@ -55,11 +55,11 @@ Lovely("dom-1.4.2", [], function() {
       });
     }
   };
-  
+
   dasherize = function(string) {
     return string.replace(/([a-z\d])([A-Z]+)/g, '$1-$2').toLowerCase();
   };
-  
+
   dimensions_hash = function(args) {
     var hash;
     hash = {};
@@ -75,7 +75,7 @@ Lovely("dom-1.4.2", [], function() {
     }
     return hash;
   };
-  
+
   extract_scripts = function(content) {
     var scripts;
     scripts = "";
@@ -85,7 +85,7 @@ Lovely("dom-1.4.2", [], function() {
     });
     return [content, scripts];
   };
-  
+
   global_eval = function(script) {
     if (script) {
       new Element('script', {
@@ -93,7 +93,7 @@ Lovely("dom-1.4.2", [], function() {
       }).insertTo(HTML);
     }
   };
-  
+
   if ('execScript' in window) {
     global_eval = function(script) {
       if (script) {
@@ -101,7 +101,7 @@ Lovely("dom-1.4.2", [], function() {
       }
     };
   }
-  
+
   ensure_array = function(value) {
     if (isArray(value)) {
       return value;
@@ -109,15 +109,15 @@ Lovely("dom-1.4.2", [], function() {
       return [value];
     }
   };
-  
+
   UID_KEY = "__lovely_dom_uid_" + (new Date().getTime());
-  
+
   UID_NUM = 1;
-  
+
   uid = function(node) {
     return node[UID_KEY] || (node[UID_KEY] = UID_NUM++);
   };
-  
+
   wrap = function(value) {
     var key;
     if (!(value == null || value instanceof Wrapper)) {
@@ -136,9 +136,9 @@ Lovely("dom-1.4.2", [], function() {
     }
     return value;
   };
-  
+
   Browser = navigator.userAgent;
-  
+
   if ('attachEvent' in document && !/Opera/.test(Browser)) {
     Browser = 'IE';
   } else if (/Opera/.test(Browser)) {
@@ -154,14 +154,14 @@ Lovely("dom-1.4.2", [], function() {
   } else {
     Browser = 'Unknown';
   }
-  
+
   NodeList = new Class(core.List, {
     constructor: function NodeList(raw_list, raw_only) {
       if (raw_only === true) {
         for (var i=0, l=this.length=raw_list.length, key; i < l; i++) {
           this[i] = Wrapper_Cache[raw_list[i][UID_KEY]] || new Element(raw_list[i]);
         };
-  
+
       } else {
         if (raw_list === undefined) {
           raw_list = [];
@@ -169,7 +169,7 @@ Lovely("dom-1.4.2", [], function() {
         for (var i=0, l=this.length=raw_list.length, key; i < l; i++) {
           this[i] = raw_list[i] instanceof Element ? raw_list[i] : (Wrapper_Cache[raw_list[i][UID_KEY]] || new Element(raw_list[i]));
         };
-  
+
       }
       return this;
     },
@@ -177,7 +177,7 @@ Lovely("dom-1.4.2", [], function() {
       return this.length !== 0;
     }
   });
-  
+
   Wrapper = new Class({
     extend: {
       Cache: [],
@@ -210,15 +210,15 @@ Lovely("dom-1.4.2", [], function() {
       }
     }
   });
-  
+
   NodeList.prototype.cast = function(Klass) {
     return this[0].cast(Klass);
   };
-  
+
   Wrapper_Cache = Wrapper.Cache;
-  
+
   Wrapper_Cache[undefined] = false;
-  
+
   Element = new Class(Wrapper, {
     constructor: function Element(element, options) {
       var cast, key;
@@ -259,7 +259,7 @@ Lovely("dom-1.4.2", [], function() {
       return this;
     }
   });
-  
+
   Element.include = function(hash) {
     var method, name, _results;
     Class.include.apply(this, arguments);
@@ -288,7 +288,7 @@ Lovely("dom-1.4.2", [], function() {
     }
     return _results;
   };
-  
+
   Element.resolve = function(element) {
     if (element instanceof Element) {
       return element;
@@ -301,9 +301,9 @@ Lovely("dom-1.4.2", [], function() {
     }
     return element || null;
   };
-  
+
   elements_cache = {};
-  
+
   Element.include(Element_events = {
     _listeners: null,
     on: function() {
@@ -343,7 +343,7 @@ Lovely("dom-1.4.2", [], function() {
       return false;
     }
   });
-  
+
   Element_make_listeners = function(instance) {
     var list;
     list = [];
@@ -382,7 +382,7 @@ Lovely("dom-1.4.2", [], function() {
     };
     return instance._listeners = list;
   };
-  
+
   Element.include({
     getClass: function() {
       return this._.className;
@@ -456,7 +456,7 @@ Lovely("dom-1.4.2", [], function() {
       return this;
     }
   });
-  
+
   Element_read_styles = function(element, names) {
     var hash, name, _i, _len, _ref;
     hash = {};
@@ -468,7 +468,7 @@ Lovely("dom-1.4.2", [], function() {
     }
     return hash;
   };
-  
+
   Element_parse_style = function(style) {
     var chunk, hash, name, value, _i, _len, _ref, _ref1;
     hash = {};
@@ -482,7 +482,7 @@ Lovely("dom-1.4.2", [], function() {
     }
     return hash;
   };
-  
+
   Element_clean_style = function(style, name) {
     var value;
     name = camelize(name);
@@ -497,11 +497,11 @@ Lovely("dom-1.4.2", [], function() {
     }
     return value;
   };
-  
+
   Element_computed_styles = function(element) {
     return element.ownerDocument.defaultView.getComputedStyle(element, null);
   };
-  
+
   Element.include({
     attr: function(name, value) {
       var element;
@@ -549,7 +549,7 @@ Lovely("dom-1.4.2", [], function() {
           try {
             value = JSON.parse(value);
           } catch (e) {
-  
+
           }
           if (attr.name === key) {
             result = value;
@@ -625,7 +625,7 @@ Lovely("dom-1.4.2", [], function() {
       return this.document().window();
     }
   });
-  
+
   Element.include({
     size: function(size) {
       var style;
@@ -738,7 +738,7 @@ Lovely("dom-1.4.2", [], function() {
       return index;
     }
   });
-  
+
   Element.include({
     find: function(css_rule, needs_raw) {
       var result;
@@ -808,7 +808,7 @@ Lovely("dom-1.4.2", [], function() {
       }
     }
   });
-  
+
   Element_recursively_collect = function(element, attr, css_rule) {
     var match, no_rule, node, result;
     result = [];
@@ -834,7 +834,7 @@ Lovely("dom-1.4.2", [], function() {
     }
     return new NodeList(result);
   };
-  
+
   Element.include({
     clone: function() {
       return new Element(this._.cloneNode(true));
@@ -913,7 +913,7 @@ Lovely("dom-1.4.2", [], function() {
       return this.insert(typeof first === "string" ? A(arguments).join('') : arguments);
     }
   });
-  
+
   Element_insert = {
     bottom: function(target, content) {
       return target.appendChild(content);
@@ -939,7 +939,7 @@ Lovely("dom-1.4.2", [], function() {
       return target.parentNode.replaceChild(content, target);
     }
   };
-  
+
   Element_create_fragment = function(context, content) {
     var block, depth, tag, tmp;
     if (typeof content === 'string') {
@@ -960,15 +960,15 @@ Lovely("dom-1.4.2", [], function() {
         node = content[content.length === length ? i : 0];
         Element_fragment.appendChild(node._ || node);
       };
-  
+
     }
     return Element_fragment;
   };
-  
+
   Element_fragment = document.createDocumentFragment();
-  
+
   Element_tmp_cont = document.createElement('div');
-  
+
   Element_wraps = {
     TBODY: ['<TABLE>', '</TABLE>', 2],
     TR: ['<TABLE><TBODY>', '</TBODY></TABLE>', 3],
@@ -978,15 +978,15 @@ Lovely("dom-1.4.2", [], function() {
     AREA: ['<map>', '</map>', 2],
     OPTION: ['<SELECT>', '</SELECT>', 2]
   };
-  
+
   Element_wraps.OPTGROUP = Element_wraps.OPTION;
-  
+
   Element_wraps.THEAD = Element_wraps.TBODY;
-  
+
   Element_wraps.TFOOT = Element_wraps.TBODY;
-  
+
   Element_wraps.TH = Element_wraps.TD;
-  
+
   Document = new Class(Wrapper, {
     include: [Element_events],
     constructor: function Document(document) {
@@ -998,9 +998,9 @@ Lovely("dom-1.4.2", [], function() {
     find: Element.prototype.find,
     first: Element.prototype.first
   });
-  
+
   current_Document = new Document(document);
-  
+
   Window = new Class(Wrapper, {
     include: Element_events,
     constructor: function Window(window) {
@@ -1074,7 +1074,7 @@ Lovely("dom-1.4.2", [], function() {
       }
     }
   });
-  
+
   Style = new Class(Element, {
     constructor: function Style(options) {
       this.$super('style', {
@@ -1087,9 +1087,9 @@ Lovely("dom-1.4.2", [], function() {
       return this;
     }
   });
-  
+
   Style.include = Element.include;
-  
+
   Form = new Class(Element, {
     constructor: function Form(element, options) {
       var remote;
@@ -1106,9 +1106,9 @@ Lovely("dom-1.4.2", [], function() {
       return this;
     }
   });
-  
+
   Form.include = Element.include;
-  
+
   Form.include({
     elements: function() {
       return this.find('input,button,select,textarea');
@@ -1189,7 +1189,7 @@ Lovely("dom-1.4.2", [], function() {
       return this;
     }
   });
-  
+
   Input = new Class(Element, {
     constructor: function Input(element, options) {
       if (!element || (!isElement(element) && isObject(element))) {
@@ -1204,9 +1204,9 @@ Lovely("dom-1.4.2", [], function() {
       return this.$super(element, options);
     }
   });
-  
+
   Input.include = Element.include;
-  
+
   Input.include({
     form: function() {
       return wrap(this._.form);
@@ -1284,7 +1284,7 @@ Lovely("dom-1.4.2", [], function() {
       }
     }
   });
-  
+
   Event = new Class(Wrapper, {
     type: null,
     which: null,
@@ -1377,7 +1377,7 @@ Lovely("dom-1.4.2", [], function() {
       return null;
     }
   });
-  
+
   Events_delegation = {
     delegate: function(css_rule, event) {
       var args, callback;
@@ -1420,7 +1420,7 @@ Lovely("dom-1.4.2", [], function() {
       return delegation_listeners(arguments, this).length === 0;
     }
   };
-  
+
   delegation_listeners = function(args, object) {
     var callback, css_rule, event, hash, result, _i, _len, _ref;
     args = A(args);
@@ -1446,15 +1446,15 @@ Lovely("dom-1.4.2", [], function() {
     }
     return result;
   };
-  
+
   Element.include(Events_delegation);
-  
+
   Document.include(Events_delegation);
-  
+
   mouseio_index = [];
-  
+
   mouseio_inactive = true;
-  
+
   mouseio_emit = function(raw, element, enter) {
     var event;
     event = new Event(raw);
@@ -1476,7 +1476,7 @@ Lovely("dom-1.4.2", [], function() {
     event.target.emit(event);
     return current_Document.emit(event);
   };
-  
+
   mouseio_handler = function(e) {
     var element, event, from, id, parents, passed, target;
     target = e.target;
@@ -1507,7 +1507,7 @@ Lovely("dom-1.4.2", [], function() {
       }
     }
   };
-  
+
   mouseio_reset = function(e) {
     var element, id, _i, _len;
     for (id = _i = 0, _len = mouseio_index.length; _i < _len; id = ++_i) {
@@ -1517,7 +1517,7 @@ Lovely("dom-1.4.2", [], function() {
       }
     }
   };
-  
+
   mouseio_activate = function() {
     if (mouseio_inactive) {
       mouseio_inactive = false;
@@ -1525,7 +1525,7 @@ Lovely("dom-1.4.2", [], function() {
       window.addEventListener('blur', mouseio_reset, false);
     }
   };
-  
+
   focusio_boobler = function(raw_event) {
     var event;
     event = new Event(raw_event);
@@ -1533,11 +1533,11 @@ Lovely("dom-1.4.2", [], function() {
       event.target.parent().emit(event);
     }
   };
-  
+
   document.addEventListener('focus', focusio_boobler, true);
-  
+
   document.addEventListener('blur', focusio_boobler, true);
-  
+
   Document.include({
     on: function(name, callback) {
       var doc, id, _ref;
@@ -1557,9 +1557,9 @@ Lovely("dom-1.4.2", [], function() {
       return this;
     }
   });
-  
+
   Ready_documents = [];
-  
+
   $ = function(value, context) {
     switch (typeof value) {
       case 'string':
@@ -1586,9 +1586,9 @@ Lovely("dom-1.4.2", [], function() {
     }
     return value;
   };
-  
+
   Wrapper.set("form", Form).set("input", Input).set("button", Input).set("select", Input).set("textarea", Input).set("optgroup", Input).set("style", Style);
-  
+
   exports = ext($, {
     version: '1.4.2',
     Browser: Browser,
@@ -1604,7 +1604,7 @@ Lovely("dom-1.4.2", [], function() {
     "eval": global_eval,
     uid: uid
   });
-  
+
 
   return exports;
 });
