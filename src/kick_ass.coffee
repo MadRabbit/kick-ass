@@ -12,6 +12,7 @@ class KickAss extends Element
       native: true # show raw DOM test
 
     Tests:
+      init:          "Initialization time"
       make:          "Elements building"
       findById:      "Access an element by ID"
       findByCSS:     "Access by a CSS rule"

@@ -12,11 +12,13 @@ class Test
   #
   # @param {Object} options
   # @param {Object} the lib specific test implementation
+  # @param {Window} the test frame context
   # @return {Test} this
   #
-  constructor: (options, test)->
+  constructor: (options, test, frame)->
     @options = options
     @test    = test
+    @frame   = frame
     return @
 
   #
@@ -27,6 +29,9 @@ class Test
   #
   run: (name)->
     args = [@test[name]]
+
+    if name == 'init'
+      return @frame.init_time
 
     if 'make findById'.indexOf(name) isnt -1
       args.push(@options.size)

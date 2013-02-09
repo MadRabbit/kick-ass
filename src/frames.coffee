@@ -35,7 +35,7 @@ class Frames extends Element
     for lib in @main.libs
       frame = window.frames['kick_ass_'+ lib]
       frame.document.body.innerHTML = ''
-      @tests[lib] = new Test(@main.options, frame.Test)
+      @tests[lib] = new Test(@main.options, frame.Test, frame);
 
     return @
 
