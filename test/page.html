@@ -9,7 +9,7 @@
       var time = new Date();
     </script>
     <script>
-      var init_time = lib === 'native' ? 0 : new Date() - time;
+      var init_time = new Date() - time;
       var test = lib == 'native' ? 'native' : lib.split('-')[0];
       document.write('<scr'+'ipt src="tests/'+ test +'.js"></scr'+'ipt>');
     </script>

@@ -110,7 +110,7 @@ class KickAss extends Element
           @nextRun()
         else
           @finish()
-    , 10 # rendering current table
+    , 500 # rendering current table and resetting
 
     return @
 

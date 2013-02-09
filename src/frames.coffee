@@ -51,7 +51,6 @@ class Frames extends Element
     if @prepare() is false
       setTimeout((=> @whenReady(callback)), 50)
     else
-      console.log('ready')
       callback()
 
     return @
