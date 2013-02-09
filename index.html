@@ -10,13 +10,14 @@
           var test = new KickAss({
             libs: [
               'lovely-1.4.1',
-              'lovely2-hack',
+              'lovely-1.4.3',
               'rightjs-2.3.1',
               'jquery-1.8.2'
             ]
           });
 
-          test.insertTo('#test-container')
+          test.insertTo('#test-container');
+          
           test.on('finish', function() {
             $('#start').removeClass('buzy');
           });

@@ -57,7 +57,7 @@ class KickAss extends Element
   setOptions: ->
     options = UI.Options.setOptions.apply(@, arguments)
     @tests  = @options.tests || core.Hash.keys(KickAss.Tests)
-    @libs   = if @options.native then ['Raw DOM'] else []
+    @libs   = if @options.native then ['native'] else []
 
     for key in options.libs
       @libs.push(key)
@@ -70,7 +70,7 @@ class KickAss extends Element
   # @return {KickAss} this
   #
   start: ->
-    @clear(); @frames.insertTo(@)
+    @clear().append(@frames);
 
     @runs = 0
     @nextRun()

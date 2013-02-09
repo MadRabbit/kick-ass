@@ -3,15 +3,10 @@
   <head>
     <script>
       var lib  = document.location.href.split('#').pop();
-      var test = lib.indexOf('DOM') == -1 ? lib.split('-')[0] : 'native'
+      var test = lib === 'native' ? lib.split('-')[0] : 'native'
 
-      lib.indexOf('DOM') > -1 && (lib = 'native');
+      lib === 'native' && (lib = 'native-0.0.0');
       document.write('<scr'+'ipt src="libs/'+ lib +'.js"></scr'+'ipt>');
-
-      var time = new Date();
-    </script>
-    <script>
-      time = new Date() - time;
     </script>
     <script>
       document.write('<scr'+'ipt src="tests/'+ test +'.js"></scr'+'ipt>');
