@@ -1,25 +1,29 @@
 # KickAss
 
-This is a simple benchmarking tool for regressive testing of the lovely.io [dom package](/packages/dom) and certainly for showing off
+This is a simple benchmarking tool and regressive testing utility
+for the lovely.io [dom package](/packages/dom).
 
 ## How To Run
 
-Assuming you're a pissed off jQuery bot, here's how you can make it run by yourself.
+Checkout the repo, then install `lovely` and related packages.
 
 ```
 npm install lovely -g
 lovely bootstrap
 lovely install dom-1.4.2 ui-2.1.2
-lovely server
 ```
 
-Then go to the browser `http://localhost:3000` and click the `Start` button. Then start moaning that I cheated, try to patch the jQuery test, make a screenshot and shovel it up in your rear.
+Then run the `lovely server` from the repo's root and open up
+[http://localhost:3000/test](http://localhost:3000/test)
 
-Sorry, i just got carried away, been there so many times... Anyhow, don't be an a-hole, this test is the most sane one out there, it wasn't built to make you upset, it was built to make lovely.io better. The fact that jQuery sucks miserably in it, doesn't have anything to do with the test. jQuery was added there just for kicks.
 
---
-Sincerly yours,
-Nikolay
+## Disclamer
+
+This utility was created to get accurate performance measurments
+on the lovely.io project and fine tune its logic.
+
+The fact that other frameworks don't look good in the tests is
+not the fault neither intention of this untility. It's just what it is.
 
 
 ## Copyright And License
