@@ -1,7 +1,7 @@
 {
   "name":        "kick-ass",
-  "version":     "0.0.0",
-  "description": "My super lovely module",
+  "version":     "1.0.0",
+  "description": "Lovely.IO regression testing utility",
   "author":      "Nikolay Nemshilov",
   "license":     "MIT"
 }

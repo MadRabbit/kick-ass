@@ -1,7 +1,7 @@
 #
 # Project's main unit
 #
-# Copyright (C) 2012 Nikolay Nemshilov
+# Copyright (C) 2012-2013 Nikolay Nemshilov
 #
 class KickAss extends Element
   extend:
@@ -12,7 +12,6 @@ class KickAss extends Element
       native: true # show raw DOM test
 
     Tests:
-      #init:          "Initialization time"
       make:          "Elements building"
       findById:      "Access an element by ID"
       findByCSS:     "Access by a CSS rule"
@@ -76,7 +75,7 @@ class KickAss extends Element
     @runs = 0
     @nextRun()
 
-    return @
+    @emit 'start'
 
   #
   # Renders the summary table
@@ -87,7 +86,7 @@ class KickAss extends Element
     table = new Table(@, "Summary")
     table.display(@stats.summary())
 
-    return @
+    @emit 'finish'
 
 
   #
